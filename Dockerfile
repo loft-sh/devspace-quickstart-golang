@@ -11,5 +11,7 @@ RUN go get ./... && go build -o app . && chmod +x app && cd /app
 
 WORKDIR /app
 
+EXPOSE 8080
+
 # Run application
 CMD ["/go/src/app/app"]
