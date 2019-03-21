@@ -1,13 +1,13 @@
 FROM golang:1.12
 
 # Create go project directory
-RUN mkdir -p /go/src/app && ln -s /go/src/app /app && cd /go/src/app
+RUN mkdir -p /go/src/app && ln -s /go/src/app /app
 
 # Add source
 ADD . /go/src/app
 
 # Build application
-RUN go get ./... && go build -o app . && chmod +x app && cd /app 
+RUN cd /go/src/app && go get ./... && go build -o app && chmod +x app
 
 WORKDIR /app
 
