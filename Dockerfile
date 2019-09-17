@@ -1,6 +1,6 @@
 FROM golang:1.12
 
-# Create go project directory (workdir)
+# Create project directory (workdir)
 RUN mkdir -p /go/src/app
 WORKDIR /go/src/app
 
