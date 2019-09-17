@@ -7,11 +7,14 @@ RUN mkdir -p /go/src/app && ln -s /go/src/app /app
 ADD . /go/src/app
 
 # Build application
-RUN cd /go/src/app && go get ./... && go build -o app && chmod +x app
+RUN cd /go/src/app && go get ./... && go build -o /tmp/my-app && chmod +x /tmp/my-app
 
-WORKDIR /app
+# Install CompileDaemon for hot reloading
+RUN go get github.com/githubnemo/CompileDaemon
+
+WORKDIR /go/src/app
 
 EXPOSE 8080
 
-# Run application
-CMD ["/go/src/app/app"]
+# Start CompileDaemon for hot reloading (will watch for file changes and then rebuild & restart the application)
+ENTRYPOINT CompileDaemon -log-prefix=false -color=true -build="go build -o /tmp/my-app" -command="/tmp/my-app"
