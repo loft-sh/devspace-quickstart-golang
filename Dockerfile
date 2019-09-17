@@ -1,20 +1,22 @@
 FROM golang:1.12
 
-# Create go project directory
-RUN mkdir -p /go/src/app && ln -s /go/src/app /app
+# Create go project directory (workdir)
+RUN mkdir -p /go/src/app
+WORKDIR /go/src/app
 
-# Add source
-ADD . /go/src/app
+# Add source code files to WORKDIR
+ADD . .
 
-# Build application
-RUN cd /go/src/app && go get ./... && go build -o /tmp/my-app && chmod +x /tmp/my-app
+# Install dependencies
+RUN go get ./... 
+
+# Build application (test if everything works)
+RUN go build -o /tmp/my-app && chmod +x /tmp/my-app
+
+EXPOSE 8080
 
 # Install CompileDaemon for hot reloading
 RUN go get github.com/githubnemo/CompileDaemon
-
-WORKDIR /go/src/app
-
-EXPOSE 8080
 
 # Start CompileDaemon for hot reloading (will watch for file changes and then rebuild & restart the application)
 ENTRYPOINT CompileDaemon -log-prefix=false -color=true -build="go build -o /tmp/my-app" -command="/tmp/my-app"
