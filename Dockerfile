@@ -5,8 +5,8 @@
 FROM golang:1.14.1-alpine as build
 
 # Create project directory (workdir)
-RUN mkdir /app 
-WORKDIR /app 
+RUN mkdir /app
+WORKDIR /app
 
 # Add source code files to WORKDIR
 ADD . .
@@ -16,7 +16,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflag
 
 # Container start command for development
 # Allows DevSpace to restart the dev container
-# It is also possible to configure this in devspace.yaml via images.*.cmd
+# It is also possible to override this in devspace.yaml via images.*.cmd
 CMD ["go", "run", "main.go"]
 
 
