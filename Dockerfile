@@ -21,9 +21,9 @@ CMD ["go", "run", "main.go"]
 
 
 ################ Production ################
-# Creates a minimal image for production using the scratch base image
-# More info here: https://hub.docker.com/_/scratch/
-FROM scratch as production
+# Creates a minimal image for production using distroless base image
+# More info here: https://github.com/GoogleContainerTools/distroless
+FROM gcr.io/distroless/base-debian10 as production
 
 # Copy application binary from build/dev stage to the distroless container
 COPY --from=build /app/main /
