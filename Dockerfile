@@ -12,7 +12,7 @@ WORKDIR /app
 ADD . .
 
 # Build application
-RUN go build -o main .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o main .
 
 # Container start command for development
 # Allows DevSpace to restart the dev container
@@ -21,9 +21,9 @@ CMD ["go", "run", "main.go"]
 
 
 ################ Production ################
-# Creates a minimal image for production using distroless base image
-# More info here: https://github.com/GoogleContainerTools/distroless
-FROM gcr.io/distroless/base-debian10 as production
+# Creates a minimal image for production using the scratch base image
+# More info here: https://hub.docker.com/_/scratch/
+FROM scratch as production
 
 # Copy application binary from build/dev stage to the distroless container
 COPY --from=build /app/main /
