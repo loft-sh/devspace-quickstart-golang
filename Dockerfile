@@ -5,7 +5,6 @@
 FROM golang:1.14.1-alpine as build
 
 # Create project directory (workdir)
-RUN mkdir /app
 WORKDIR /app
 
 # Add source code files to WORKDIR
