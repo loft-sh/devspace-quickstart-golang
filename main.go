@@ -19,7 +19,7 @@ func main() {
 					<h2>Now it's time to code:</h2>
 					<ol>
 						<li>Edit this text in <code>main.go</code> and save the file</li>
-						<li>Check the logs to see how DevSpace restarts your container</li>
+						<li>Restart the application with <code>go run main.go</code></li>
 						<li>Reload browser to see the changes</li>
 					</ol>
 				</div>
